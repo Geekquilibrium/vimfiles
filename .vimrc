@@ -106,7 +106,6 @@ if has("gui_running")
     set mousehide
     colorscheme underwater-mod
     colorscheme void
-    colorscheme solarized
 
     " To set the toolbars off (icons on top of the screen)
     set guioptions-=T
@@ -134,7 +133,7 @@ set autoindent          " always set autoindenting on
 set showcmd             " display incomplete commands
 set ruler               " show the cursor position all the time
 set visualbell t_vb=    " turn off error beep/flash
-set novisualbell        " turn off visual bell
+"set novisualbell        " turn off visual bell
 set nobackup            " do not keep a backup file
 set number              " show line numbers
 set title               " show title in console title bar
@@ -150,6 +149,7 @@ set matchtime=3
 set spell
 set expandtab           " tabs are converted to spaces, use only when required
 set sm                  " show matching braces, somewhat annoying...
+set hidden
 
 set statusline=[FILE=%{&enc}\|%t\|%{fugitive#statusline()}]\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
@@ -361,7 +361,7 @@ imap <esc><c-left> :tabprev<CR>
 " ==================================================
 
 " Auto change the directory to the current file I'm working on
-autocmd BufEnter * lcd %:p:h
+"autocmd BufEnter * lcd %:p:h
 
 " make the smarty .tpl files html files for our purposes
 au BufNewFile,BufRead *.tpl set filetype=html
@@ -394,6 +394,7 @@ au BufReadPost quickfix map <buffer> <silent> <CR> :.cc <CR> :ccl
 " au BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
 au BufRead *.py compiler nose
 au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+autocmd Filetype python nmap <F9> :!ctags -R --languages=python <return>
 
 " ==================================================
 " Javascript
@@ -419,25 +420,22 @@ autocmd Filetype ruby,eruby set ai et sw=2 ts=2 tw=78 sts=2 cc=+2 omnifunc=rubyc
 let g:ruby_minlines = 500
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
+autocmd Filetype ruby nmap <F9> :!ctags -R --languages=ruby <return>
 
 " ==================================================
 " PHP
 " ==================================================
-autocmd Filetype php set ai et sta sw=4 sts=4 tw=84 ts=4 cc=+2 omnifunc=phpcomplete#CompletePHP
+autocmd Filetype php set ai et sta sw=2 sts=2 tw=84 ts=2 cc=+2 omnifunc=phpcomplete#CompletePHP
 autocmd FileType php let php_folding = 1
 autocmd FileType php let php_noShortTags = 1
 autocmd FileType php let php_parent_error_close = 1
 autocmd FileType php let php_parent_error_open = 1
 autocmd FileType php let php_large_files = 0
 autocmd FileType php let DisableAutoPHPFolding = 1
-autocmd FileType php nmap <F5> <ESC>:EnableFastPHPFolds<CR>
+autocmd FileType php nmap <F6> <ESC>:EnableFastPHPFolds<CR>
 "autocmd FileType php nmap <F6> <ESC>:EnablePHPFolds<CR>
-autocmd FileType php nmap <F6> <ESC>:DisablePHPFolds<CR>
-
-" ==================================================
-" CheckSyntax
-" ==================================================
-" nmap <F5> :CheckSyntax<CR>
+autocmd FileType php nmap <F7> <ESC>:DisablePHPFolds<CR>
+autocmd Filetype php nmap <F9> :!ctags -R --languages=PHP <return>
 
 " ==================================================
 " SCSS
@@ -464,7 +462,14 @@ au BufRead,BufNewFile *.scss set filetype=scss
 
 " lusty-juggler
 " http://www.vim.org/scripts/script.php?script_id=2050
-nmap <silent> <Leader>bb :LustyJuggler<CR>
+"nmap <silent> <Leader>bb :LustyJuggler<CR>
+
+" LycosaExplorer
+" http://www.vim.org/scripts/script.php?script_id=3659
+" <leader>lf - Opens the filesystem explorer.
+" <leader>lr - Opens the filesystem explorer from the directory current file.
+" <leader>lb - Opens the buffer explorer.
+" <leader>lg - Opens the buffer grep, for searching through all loaded buffers.
 
 " NERDTree
 " http://www.vim.org/scripts/script.php?script_id=1658
@@ -531,6 +536,9 @@ let g:user_zen_settings = {
   \   'extends' : 'html',
   \ },
   \}
+
+" CheckSyntax
+nmap <F5> :CheckSyntax<CR>
 
 " tComment
 " http://www.vim.org/scripts/script.php?script_id=1173
