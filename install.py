@@ -46,7 +46,7 @@ def remove_bundles():
 def install_bundles():
     """Read bundles file and git clone each repo into .vim/bundle"""
     bundle_list = open('bundle_list')
-    git_cmd = '/usr/bin/git clone {0} $HOME/configs/pyvim/bundle/{1}'
+    git_cmd = '/usr/bin/git clone {0} $HOME/vimfiles/bundle/{1}'
     for b in bundle_list:
         if not b.startswith('#'):
             dirname_idx = b.rfind('/') + 1

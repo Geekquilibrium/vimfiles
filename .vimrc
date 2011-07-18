@@ -24,7 +24,7 @@
 " ,S - remove end of line spaces
 " ,c  - open the quickfix window
 " ,cc - close the quickfix window
-" ,t - toggle nerdtree
+" ,a - toggle nerdtree
 " ,r - view registers
 " ,t - collapse/fold html tag
 "
@@ -127,6 +127,7 @@ set tabstop=4           " numbers of spaces of tab character
 set shiftwidth=4        " numbers of spaces to (auto)indent
 set scrolloff=3         " keep 3 lines when scrolling
 set nocursorline        " have a line indicate the cursor location
+set colorcolumn=+2      " 
 set cindent             " cindent
 set autoindent          " always set autoindenting on
 set showcmd             " display incomplete commands
@@ -149,7 +150,7 @@ set spell
 set expandtab           " tabs are converted to spaces, use only when required
 set sm                  " show matching braces, somewhat annoying...
 
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [%{fugitive#statusline()}]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " move freely between files
 set whichwrap=b,s,h,l,<,>,[,]
@@ -342,6 +343,17 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabLongestHighlight = 1
 let g:SuperTabMidWordCompletion = 1
 
+" ==================================================
+" Tab's
+" ==================================================
+nmap <C-UP> :tabnew<CR>
+imap <esc><c-up> :tabnew<CR>
+nmap <C-down> :tabclose<CR>
+imap <esc><c-down> :tabclose<CR>
+nmap <C-right> :tabnext<CR>
+imap <esc><c-right> :tabnext<CR>
+nmap <C-left> :tabprev<CR>
+imap <esc><c-left> :tabprev<CR>
 
 " ==================================================
 " Filetypes
@@ -400,6 +412,34 @@ map <Leader>T :!tidy -config ~/.tidyrc<cr><cr>
 nnoremap <leader>f Vatzf
 
 " ==================================================
+" Ruby
+" ==================================================
+autocmd Filetype ruby,eruby set ai et sw=2 ts=2 tw=78 sts=2 cc=+2 omnifunc=rubycomplete#Complete
+let g:ruby_minlines = 500
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_rails = 1
+autocmd BufWritePost *.rb !ruby -c <afile>
+
+" ==================================================
+" PHP
+" ==================================================
+autocmd Filetype php set ai et sta sw=4 sts=4 tw=84 ts=4 cc=+2 omnifunc=phpcomplete#CompletePHP
+autocmd FileType php let php_folding = 1
+autocmd FileType php let php_noShortTags = 1
+autocmd FileType php let php_parent_error_close = 1
+autocmd FileType php let php_parent_error_open = 1
+autocmd FileType php let php_large_files = 0
+autocmd FileType php let DisableAutoPHPFolding = 1
+autocmd FileType php nmap <F5> <ESC>:EnableFastPHPFolds<CR>
+autocmd FileType php nmap <F6> <ESC>:EnablePHPFolds<CR>
+autocmd FileType php nmap <F7> <ESC>:DisablePHPFolds<CR>
+
+" ==================================================
+" SCSS
+" ==================================================
+au BufRead,BufNewFile *.scss set filetype=scss
+
+" ==================================================
 " Syntax Files
 " ==================================================
 
@@ -419,12 +459,73 @@ nnoremap <leader>f Vatzf
 
 " lusty-juggler
 " http://www.vim.org/scripts/script.php?script_id=2050
-nmap <silent> <Leader>b :LustyJuggler<CR>
+nmap <silent> <Leader>bb :LustyJuggler<CR>
 
 " NERDTree
 " http://www.vim.org/scripts/script.php?script_id=1658
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-map <leader>a :NERDTree<CR>
+map <leader>a :NERDTreeToggle<CR>
+let g:NERDTreeWinPos = 'right'
+
+" Gundo
+" http://www.vim.org/scripts/script.php?script_id=3304
+nmap \g :GundoToggle<CR>
+let g:gundo_right = 1
+
+" CommandT
+nmap \t :CommandT<CR>
+nmap \tt :CommandTFlush<CR>
+let g:CommandTMaxHeight = 10
+let g:CommandTMatchWindowAtTop = 1
+
+" Ack
+nmap \a :Ack!
+
+" EasyMotion
+let g:EasyMotion_leader_key = '\m'
+let g:EasyMotion_mapping_t = '_t'
+let g:EasyMotion_mapping_gE = '_gE'
+
+" Solarized
+call toggle#map('\<F8>')
+
+" Surround
+let g:surround_{char2nr('-')} = "<% \r %>"
+let g:surround_{char2nr('=')} = "<% \r %>"
+let g:surround_{char2nr('8')} = "/* \r */"
+let g:surround_{char2nr('s')} = " \r "
+let g:surround_{char2nr('^')} = "/^\r$/"
+let g:surround_indent = 1
+
+" CakePHP
+let g:cakephp_auto_set_project = 1
+let g:cakephp_app = "/path/to/cakephp_app/"
+nmap \cc :Ccontroller
+nmap \cm :Cmodel
+nmap \cv :Cview
+nmap \cl :Clog
+
+" Ragtag
+let g:ragtag_global_maps = 1
+
+" Zencoding
+let g:user_zen_expandabbr_key = '<c-e>'
+let g:user_zen_complete_tag = 1
+let g:user_zen_settings = {
+  \ 'php' : {
+  \   'extends' : 'html',
+  \   'filters' : 'c',
+  \ },
+  \ 'xml' : {
+  \   'extends' : 'html',
+  \ },
+  \ 'haml' : {
+  \   'extends' : 'html',
+  \ },
+  \ 'erb' : {
+  \   'extends' : 'html',
+  \ },
+  \}
 
 " tComment
 " http://www.vim.org/scripts/script.php?script_id=1173
@@ -488,7 +589,7 @@ let g:gist_open_browser_after_post = 1
 " RopeVim
 " http://rope.sourceforge.net/ropevim.html
 " Refactoring engine using python-rope
-source /usr/local/ropevim.vim
+"source /usr/local/ropevim.vim
 let ropevim_codeassist_maxfixes=10
 let ropevim_vim_completion=1
 let ropevim_guess_project=1
@@ -530,12 +631,12 @@ let ropevim_extended_complete=1
 "     else
 "     let make_args = '%'
 "     endif
-" 
+"
 "     :call MakeGreen(make_args)
 " endfunction
-" 
+"
 " autocmd FileType python map <buffer> <leader>t :call MakeArgs()<CR>
-" 
+"
 " ==================================================
 " Custom Functions
 " ==================================================
@@ -571,4 +672,27 @@ function! JavaScriptFold()
         return substitute(getline(v:foldstart), '{.*', '{...}', '')
     endfunction
     setl foldtext=FoldText()
+endfunction
+
+" Taken from an IBM DeveloperWorks article on Vim scripting -- prompts for
+" creation of nonexistent directories.
+augroup AutoMKdir
+    autocmd!
+    autocmd BufNewFile * :call EnsureDirExists()
+augroup END
+function! EnsureDirExists ()
+    let required_dir = expand("%:h")
+    if !isdirectory(required_dir)
+        call AskQuit("Directory '" . required_dir . "' doesn't exist.", "&Create it?")
+        try
+            call mkdir( required_dir, 'p' )
+        catch
+            call AskQuit( "Can't create '" . required_dir . "'", "&Continue anyway?" )
+        endtry
+    endif
+endfunction
+function! AskQuit( msg, proposed_action )
+    if confirm( a:msg, a:proposed_action . "\n&Quit?" ) == 2
+        exit
+    endif
 endfunction
