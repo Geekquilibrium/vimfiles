@@ -101,20 +101,21 @@ if has("gui_running")
     set guifont=Liberation\ Mono\ 8" use this font
     set lines=75          " height = 50 lines
     set columns=180       " width = 100 columns
-    set background=dark   " adapt colors for background
+    set background=light  " adapt colors for background
     set keymodel=
     set mousehide
     colorscheme underwater-mod
     colorscheme void
+    colorscheme solarized
 
     " To set the toolbars off (icons on top of the screen)
     set guioptions-=T
+    set guioptions-=m
 else
     set background=dark   " adapt colors for dark background
     colorscheme lucius
     set t_Co=256
 endif
-
 
 " ==================================================
 " Basic Settings
@@ -150,7 +151,7 @@ set spell
 set expandtab           " tabs are converted to spaces, use only when required
 set sm                  " show matching braces, somewhat annoying...
 
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [%{fugitive#statusline()}]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set statusline=[FILE=%{&enc}\|%t\|%{fugitive#statusline()}]\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " move freely between files
 set whichwrap=b,s,h,l,<,>,[,]
@@ -191,8 +192,8 @@ imap <c-c> <Nop>
 
 " ,v brings up my .vimrc
 " ,V reloads it -- making all changes active (have to save first)
-map <leader>v :sp ~/.vimrc<CR><C-W>_
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nmap <leader>v :sp ~/.vimrc<CR><C-W>_
+"nmap <silent> <leader>V :source ~/.vimrc <BAR> echo 'Vimrc recarregado!'<CR>
 
 " Run Make with ctrl-m or ,m
 map <silent> <leader>m :make<CR>
@@ -418,7 +419,6 @@ autocmd Filetype ruby,eruby set ai et sw=2 ts=2 tw=78 sts=2 cc=+2 omnifunc=rubyc
 let g:ruby_minlines = 500
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
-autocmd BufWritePost *.rb !ruby -c <afile>
 
 " ==================================================
 " PHP
@@ -431,8 +431,13 @@ autocmd FileType php let php_parent_error_open = 1
 autocmd FileType php let php_large_files = 0
 autocmd FileType php let DisableAutoPHPFolding = 1
 autocmd FileType php nmap <F5> <ESC>:EnableFastPHPFolds<CR>
-autocmd FileType php nmap <F6> <ESC>:EnablePHPFolds<CR>
-autocmd FileType php nmap <F7> <ESC>:DisablePHPFolds<CR>
+"autocmd FileType php nmap <F6> <ESC>:EnablePHPFolds<CR>
+autocmd FileType php nmap <F6> <ESC>:DisablePHPFolds<CR>
+
+" ==================================================
+" CheckSyntax
+" ==================================================
+" nmap <F5> :CheckSyntax<CR>
 
 " ==================================================
 " SCSS
@@ -487,7 +492,7 @@ let g:EasyMotion_mapping_t = '_t'
 let g:EasyMotion_mapping_gE = '_gE'
 
 " Solarized
-call toggle#map('\<F8>')
+call togglebg#map('<F8>')
 
 " Surround
 let g:surround_{char2nr('-')} = "<% \r %>"
