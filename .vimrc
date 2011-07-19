@@ -55,7 +55,7 @@
 "
 " Windows
 " ctrl-jklm - swap to that split without the ctrl-w
-" +/-       - shrink the current split verticall
+" +/-       - shrink the current split horizontal
 " alt-,/.   - move the split vertically
 " F2        - close current split
 "
@@ -296,6 +296,11 @@ nnoremap <silent> <expr> 0 ScreenMovement("0")
 nnoremap <silent> <expr> ^ ScreenMovement("^")
 nnoremap <silent> <expr> $ ScreenMovement("$")
 
+" Split window vertical
+nmap <A-v> <C-w>v
+
+" Split window horizontal
+nmap <A-h> <C-w>s
 
 " ==================================================
 " Search
