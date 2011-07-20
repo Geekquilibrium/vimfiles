@@ -431,7 +431,7 @@ autocmd Filetype ruby nmap <F9> :!ctags -R --languages=ruby <return>
 " ==================================================
 " PHP
 " ==================================================
-autocmd Filetype php set ai et sta sw=2 sts=2 tw=84 ts=2 cc=+2 omnifunc=phpcomplete#CompletePHP
+autocmd Filetype php set ai et sta sw=2 sts=2 tw=86 ts=2 cc=86 omnifunc=phpcomplete#CompletePHP
 autocmd FileType php let php_folding = 1
 autocmd FileType php let php_noShortTags = 1
 autocmd FileType php let php_parent_error_close = 1
