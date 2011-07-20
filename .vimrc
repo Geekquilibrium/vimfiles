@@ -54,7 +54,7 @@
 " F11  - toggle :set paste on/off
 "
 " Windows
-" ctrl-jklm - swap to that split without the ctrl-w
+" alt-jklm - swap to that split without the ctrl-w
 " +/-       - shrink the current split horizontal
 " alt-,/.   - move the split vertically
 " F2        - close current split
@@ -107,9 +107,10 @@ if has("gui_running")
     colorscheme underwater-mod
     colorscheme void
 
-    " To set the toolbars off (icons on top of the screen)
-    set guioptions-=T
-    set guioptions-=m
+    " To set the toolbars toggle (icons on top of the screen)
+    nnoremap <C-F1> :if &go=~#'m'<BAR>set go-=m<BAR>else<BAR>set go+=m<BAR>endif<CR>
+    nnoremap <C-F2> :if &go=~#'T'<BAR>set go-=T<BAR>else<BAR>set go+=T<BAR>endif<CR>
+    nnoremap <C-F3> :if &go=~#'r'<BAR>set go-=r<BAR>else<BAR>set go+=r<BAR>endif<CR>
 else
     set background=dark   " adapt colors for dark background
     colorscheme lucius
@@ -253,10 +254,10 @@ nnoremap <leader>q gqap
 " ==================================================
 
 " ctrl-jklm  changes to that split
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
+map <a-j> <c-w>j
+map <a-k> <c-w>k
+map <a-l> <c-w>l
+map <a-h> <c-w>h
 
 " Hints for other movements
 " <c-w><c-r> rotate window to next spot
@@ -267,12 +268,12 @@ map <c-h> <c-w>h
 imap <C-W> <C-O><C-W>
 
 " use - and + to resize horizontal splits
-map - <C-W>-
-map + <C-W>+
+map <a--> <C-W>-
+map <a-=> <C-W>+
 
 " and for vsplits with alt-< or alt->
-map <M-,> <C-W>>
-map <M-.> <C-W><
+map <M-,> <C-W><
+map <M-.> <C-W>>
 
 " F2 close current window (commonly used with my F1/F3 functions)
 noremap <f2> <Esc>:close<CR><Esc>
@@ -300,7 +301,7 @@ nnoremap <silent> <expr> $ ScreenMovement("$")
 nmap <A-v> <C-w>v
 
 " Split window horizontal
-nmap <A-h> <C-w>s
+nmap <A-s> <C-w>s
 
 " ==================================================
 " Search
@@ -465,16 +466,13 @@ au BufRead,BufNewFile *.scss set filetype=scss
 " Plugins
 " ==================================================
 
-" lusty-juggler
-" http://www.vim.org/scripts/script.php?script_id=2050
-"nmap <silent> <Leader>bb :LustyJuggler<CR>
-
-" LycosaExplorer
-" http://www.vim.org/scripts/script.php?script_id=3659
-" <leader>lf - Opens the filesystem explorer.
-" <leader>lr - Opens the filesystem explorer from the directory current file.
-" <leader>lb - Opens the buffer explorer.
-" <leader>lg - Opens the buffer grep, for searching through all loaded buffers.
+" Shell
+" https://github.com/xolox/vim-shell.git
+let g:shell_mappings_enabled = 0
+inoremap <C-F11> <ESC>:Fullscreen<CR>i
+nnoremap <C-F11> :Fullscreen<CR>
+inoremap <C-F6> <ESC>:Open<CR>i
+nnoremap <C-F6> :Open<CR>
 
 " NERDTree
 " http://www.vim.org/scripts/script.php?script_id=1658
