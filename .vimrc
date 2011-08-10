@@ -104,8 +104,8 @@ if has("gui_running")
     set background=light  " adapt colors for background
     set keymodel=
     set mousehide
-    colorscheme underwater-mod
-    colorscheme void
+    colorscheme tutticolori
+    "colorscheme void
 
     " To set the toolbars toggle (icons on top of the screen)
     nnoremap <C-F1> :if &go=~#'m'<BAR>set go-=m<BAR>else<BAR>set go+=m<BAR>endif<CR>
@@ -447,6 +447,7 @@ autocmd Filetype php nmap <F9> :!ctags -R --languages=PHP <return>
 " SCSS
 " ==================================================
 au BufRead,BufNewFile *.scss set filetype=scss
+au BufRead,BufNewFile *.less set filetype=css syntax=less
 
 " ==================================================
 " Syntax Files

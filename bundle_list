@@ -27,7 +27,7 @@ https://github.com/acustodioo/vim-enter-indent.git
 git://github.com/sjl/gundo.vim.git
 https://github.com/acustodioo/php.vim-html-enhanced.git
 https://github.com/leshill/vim-json.git
-https://github.com/shawncplus/phpcomplete.vim.git
+#https://github.com/shawncplus/phpcomplete.vim.git
 https://github.com/vim-ruby/vim-ruby.git
 https://github.com/tpope/vim-rails.git
 https://github.com/tpope/vim-ragtag.git
@@ -40,8 +40,9 @@ https://github.com/kchmck/vim-coffee-script.git
 https://github.com/vim-scripts/cake.vim.git
 https://github.com/cakebaker/scss-syntax.vim.git
 https://github.com/tpope/vim-markdown.git
-https://github.com/vim-scripts/phpfolding.vim.git
+#https://github.com/vim-scripts/phpfolding.vim.git
 git://github.com/tomtom/checksyntax_vim.git
 #git://github.com/sjbach/lusty.git
 #https://github.com/vim-scripts/LycosaExplorer.git
 https://github.com/xolox/vim-shell.git
+https://github.com/spf13/PIV
